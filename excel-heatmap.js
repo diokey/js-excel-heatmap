@@ -9,10 +9,34 @@
 
         var tableData, //holds the table data. Each cell value should be only numbers, if not we will consider that value as null
 
-        defaultOptions, // hold the library default options
+        // hold the library default options
+        defaultOptions = {
+        
+        }, 
 
-        defaultColors
+        // colors pattern
+        defaultColors = {
+        
+        }
         ;
+        
+        /*
+         * Common DOM utily
+         * To avoid external library depedency, i avoided jquery,
+         * so i need to write some DOM utils for cross browser compatibly
+         */
+        var DomUtils = {
+        
+        };
+
+        /*
+         * Common Utils
+         */
+        var Utils = {
+            computeColor : function (argument) {
+                
+            } 
+        };
 
         /*
          * Public Api to expose to the user
