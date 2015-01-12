@@ -42,7 +42,7 @@ var AUTOPREFIXER_BROWSERS = [
 
 // Lint JavaScript
 gulp.task('jshint', function () {
-    return gulp.src('examples/scripts/**/*.js')
+    return gulp.src(['examples/scripts/**/*.js','src/*.js'])
     .pipe(reload({stream: true, once: true}))
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
@@ -52,7 +52,10 @@ gulp.task('jshint', function () {
 // Optimize Images
 gulp.task('images', function () {
     return gulp.src('examples/images/**/*') 
-  .pipe($.cache($.imagemin({ progressive: true, interlaced: true }))) 
+    .pipe($.imagemin({ 
+      progressive: true, 
+      interlaced: true 
+  })) 
   .pipe(gulp.dest('dist/images')) 
   .pipe($.size({title: 'images'}));
 });
@@ -71,7 +74,7 @@ gulp.task('copy', function () {
 
 // Copy Web Fonts To Dist
 gulp.task('fonts', function () {
-    return gulp.src(['examples/fonts/**'])
+    return gulp.src(['examples/fonts/*'])
     .pipe(gulp.dest('dist/fonts'))
     .pipe($.size({title: 'fonts'}));
 });
@@ -84,6 +87,12 @@ gulp.task('lib',function(){
     .pipe($.rename({extname : '.min.js'}))
     .pipe(gulp.dest('lib'))
     .pipe($.size({title:'lib'}));
+});
+
+gulp.task('copy-lib',function () {
+    return gulp.src('src/*.js')
+    .pipe(gulp.dest('examples/scripts'))
+    .pipe($.size({title:'copy-lib'}));
 });
 
 gulp.task('test',function(done){
@@ -116,7 +125,7 @@ gulp.task('styles', function () {
 
 // Scan Your HTML For Assets & Optimize Them
 gulp.task('html', function () {
-    var assets = $.useref.assets({searchPath: '{.tmp,examples}'});
+    var assets = $.useref.assets({searchPath: '{.tmp,examples,src}'});
 
   return gulp.src('examples/**/*.html')
     .pipe(assets)
@@ -153,7 +162,7 @@ gulp.task('html', function () {
 gulp.task('clean', del.bind(null, ['.tmp', 'dist/*', '!dist/.git'], {dot: true}));
 
 // Watch Files For Changes & Reload
-gulp.task('serve', ['styles'], function () {
+gulp.task('serve', ['styles','copy-lib'], function () {
   browserSync({
     notify: false,
     // Customize the BrowserSync console logging prefix
@@ -186,6 +195,6 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function (cb) {
-  runSequence('styles', ['jshint', 'html', 'images', 'fonts', 'copy'], cb);
+  runSequence('styles', ['jshint', 'html', 'images', 'fonts', 'copy-lib','copy'], cb);
 });
 
