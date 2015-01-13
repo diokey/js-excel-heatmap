@@ -1,7 +1,6 @@
 /**
  *
- *  Web Starter Kit
- *  Copyright 2014 Google Inc. All rights reserved.
+ *  Olivier DUSABIMANA
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -176,7 +175,7 @@ gulp.task('serve', ['styles','copy-lib'], function () {
 
   gulp.watch(['examples/**/*.html'], reload);
   gulp.watch(['examples/styles/*.css'], ['styles', reload]);
-  gulp.watch(['src/*.js','examples/scripts/*.js'], ['jshint']);
+  gulp.watch(['src/*.js','examples/scripts/*.js'], ['jshint','copy-lib']);
   gulp.watch(['examples/images/**/*'], reload);
 });
 
