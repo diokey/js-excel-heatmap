@@ -47,4 +47,14 @@
       closeMenu();
     }
   });
+
+  var excelHeatMap = window.ExcelHeatMap;
+
+  excelHeatMap.init('myTable',{});
+  excelHeatMap.render();
+
+  console.log('done rendering');
+
+
 })();
+
