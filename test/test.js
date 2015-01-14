@@ -8,10 +8,15 @@
     "use strict";
    describe('ExcelHeatMap', function() {
        
-       it('Should expose ExcelHeatMap Object', function() {
+       it('Should should expose ExcepHeatMap', function() {
            expect(window.ExcelHeatMap).toBeDefined();
-           var ExcelHeatMap = window.ExcelHeatMap;
-           expect(ExcelHeatMap.render()).toEqual('Coming soon');
+
        });
+
+
+        var ExcelHeatMap = window.ExcelHeatMap;
+
+        //add more test here
+
    });
 }());
