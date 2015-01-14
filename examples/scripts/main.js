@@ -1,7 +1,5 @@
 /*!
  *
- *  Web Starter Kit
- *  Copyright 2014 Google Inc. All rights reserved.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -53,8 +51,11 @@
   excelHeatMap.init('myTable',{});
   excelHeatMap.render();
 
-  console.log('done rendering');
+  //render second table. May be i should allow user to pass an array of ids
+  //or may be allows the user to pass whatever selector is.
 
+  excelHeatMap.init('myTable2',{});
+  excelHeatMap.render();
 
 })();
 
