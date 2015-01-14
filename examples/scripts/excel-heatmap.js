@@ -14,11 +14,13 @@
             max : 0,
             min : 0,
             // colors pattern
-            defaultColors : [
+            defaultColors : [      
                 '#63BE7B',
                 '#FBE983',
-                '#F8696B'
+                '#F8696B',
+                '#ffff00'
             ],
+            defaultTextColor : '#FFFFFF',
             NaNcolor : '#808080' //grey color
         };
         
@@ -62,8 +64,22 @@
                 var sIndex = Math.floor(colorPosition);
                 sIndex = Math.min(nColors -2, sIndex);
 
-                var s = colors[sIndex];
-                var e = colors[sIndex+1];
+                var start = colors[sIndex];
+                var end = colors[sIndex+1];
+
+                var hsvStart = this.rgb2hsv(this.hex2num(start));
+                var hsvEnd = this.rgb2hsv(this.hex2num(end));
+
+                var interiorPercent = (percent * (nColors - 1)) - sIndex;
+
+                var hsvResult = this.transition3(interiorPercent, 1, hsvStart, hsvEnd);
+
+                var dispRGB = this.hsv2rgb(hsvResult);
+
+                var color = this.num2hex(dispRGB);
+
+                return color;
+
             },
             getMax : function (a,b) {
                 return Math.max(a,b); 
@@ -92,6 +108,118 @@
                }
 
                return rgb;
+            },
+            num2hex : function (rgb) {
+               var res = '#';
+               for (var i= 0,l = rgb.length; i<l; i++) {
+                    var hex = Math.round(rgb[i]).toString(16);
+                    while (hex.length < 2) {
+                        hex = '0' + hex;
+                    }
+                    res +=hex;
+               }
+
+               return res;
+            },
+            rgb2hsv : function( rgb ) {
+                var r, g, b;
+                r = rgb[0];
+                g = rgb[1];
+                b = rgb[2];
+
+                r = r/255;
+                g = g/255;
+                b = b/255;
+
+                var max = Math.max(r,g,b);
+                var min = Math.min(r,g,b);
+
+                var h,s,v = max;
+
+                var diff = max - min;
+                s = (max === 0) ? 0 : diff / max;
+                if (max === min) {
+                    h = 0;
+                } else {
+                    switch (max) {
+                        case r : h = (g - b) / diff + (g < b ? 6 : 0);
+                        break;
+                        case g : h = (b - r) / diff + 2; 
+                        break;
+                        case h : h = (r - g) / diff + 4;
+                        break;
+                    }
+                    h = h / 6;
+                }
+                h = Math.max(0,Math.min(h,1));
+                s = Math.max(0,Math.min(s,1));
+                v = Math.max(0,Math.min(v,1));
+
+                return [h,s,v];
+
+            },
+            hsv2rgb : function ( hsv ) {
+                var h = hsv[0];
+                var s = hsv[1];
+                var v = hsv[2];
+
+                var r,g,b;
+
+                var i = Math.floor(h * 6);
+                var f = h * 6 - i;
+                var p = v * (1 - s);
+                var q = v * (1 - f * s);
+                var t = v * (1 - (1 - f) * s);
+
+                switch (i % 6) {
+                    case 0 : r = v; g = t; b = p;
+                    break;
+                    case 1 : r = q; g = v; b = p;
+                    break;
+                    case 2 : r = p; g = v; b = t;
+                    break;
+                    case 3 : r = p; g = q; b = v;
+                    break;
+                    case 4 : r = t; g = p; b = v;
+                    break;
+                    case 5 : r = v; g = p; b = q;
+                    break;
+                }
+
+                r = (Math.min(r,1)) * 255;
+                g = (Math.min(g,1)) * 255;
+                b = (Math.min(b,1)) * 255;
+
+                return [r,g,b];
+
+
+            },
+            transition : function(value, max, start, end) {
+                return start + (end - start) * value / max;
+            },
+            transition3 : function (val, max, start, end) {
+                //handle situation where grey scale colors have red hue
+                if (start[1] === 0) { start[0] = end[0]; }
+                if (end[1] === 0) { end[0] = start[0]; }
+
+                //handle black saturation issue
+                if (start[2] === 0) { start[1] = end[1]; }
+                if (end[2] === 0) { end[1] = start[1]; }
+
+                var p = val / max;
+                //hue has to wrap correctly around zero
+                
+                var distCCW = (start[0] >= end[0]) ? start[0] - end[0] : 1 + start[0] - end[0];
+                var distCW = (start[0] >= end[0]) ? 1 + end[0] - start[0] : end[0] - start[0];
+
+                var hue = (distCW <= distCCW) ? start[0] + (distCW * p) : start[0] - (distCCW * p);
+                if(hue<0) { hue += 1; }
+
+                var saturation = this.transition(val,max,start[1],end[1]);
+
+                var value = this.transition(val, max, start[1], end[1]);
+
+                return [hue, saturation, value];
             }
         };
 
@@ -115,13 +243,12 @@
 
                    var percent = ( 1.0 * adj ) / range;
 
-                   //color = Utils.computeColor(percent);
+                   color = Utils.computeColor(percent);
 
-                   //console.log('value : '+val+' percent : '+percent);
-                   //console.log('adj : '+adj+' range : '+range);
                 }
 
                 tableData[i].style.backgroundColor = color;
+                tableData[i].style.color = defaultOptions.defaultTextColor;
                 
             }
         };
