@@ -28,8 +28,8 @@
          * Common Utils
          */
         var Utils = {
-            findMaxMin : function (tableId) {
-                var cells = document.querySelectorAll('#'+tableId+' td');
+            findMaxMin : function (selector) {
+                var cells = document.querySelectorAll(selector);
                 var max = defaultOptions.max;
                 var min = defaultOptions.min;
                 for( var i=0, l=cells.length; i < l; i++ ) {
@@ -229,6 +229,10 @@
 
         var init = function (id, data, func) {
             tableData = Utils.findMaxMin(id);
+
+            if (!tableData) {
+                throw new Error('Error : Couldn\'t find the specified id');
+            }
         }, 
         
         renderHtml = function () {
