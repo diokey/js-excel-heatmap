@@ -48,7 +48,19 @@
 
   var excelHeatMap = window.ExcelHeatMap;
 
-  excelHeatMap.init('#myTable td',{});
+
+  var colorOptions = {
+    // colors pattern
+    defaultColors : [      
+        '#63BE7B',
+        '#FBE983',
+        '#F8696B',
+    ],
+    defaultTextColor : '#000000',
+    NaNcolor : '#800000' //grey color
+  };
+
+  excelHeatMap.init('#myTable td',colorOptions);
   excelHeatMap.render();
 
   //render second table. May be i should allow user to pass an array of ids
