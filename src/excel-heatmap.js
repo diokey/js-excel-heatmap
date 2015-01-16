@@ -10,24 +10,25 @@
         var tableData, //holds the table data. Each cell value should be only numbers, if not we will consider that value as null
 
         // hold the library default options
-        defaultOptions = {
-            max : 0,
-            min : 0,
-            // colors pattern
-            defaultColors : [      
-                '#63BE7B',
-                '#FBE983',
-                '#F8696B',
-                '#ffff00'
-            ],
-            defaultTextColor : '#FFFFFF',
-            NaNcolor : '#808080' //grey color
-        };
+        defaultOptions = {};
         
         /*
          * Common Utils
          */
         var Utils = {
+            extend : function (options) {
+                defaultOptions.max = options.max || defaultOptions.max;
+                defaultOptions.min = options.min || defaultOptions.min;
+                defaultOptions.defaultTextColor = options.defaultTextColor || defaultOptions.defaultTextColor;
+                defaultOptions.NaNcolor = options.NaNcolor || defaultOptions.Nancolor;
+                defaultOptions.defaultColors =  
+                    (options.defaultColors && this.isArray(options.defaultColors))?
+                    options.defaultColors : defaultOptions.defaultColors;
+
+            },
+            isArray : function (obj) {
+                return Object.prototype.toString.call (obj) === '[object Array]'; 
+            },
             findMaxMin : function (selector) {
                 var cells = document.querySelectorAll(selector);
                 var max = defaultOptions.max;
@@ -228,7 +229,28 @@
          */
 
         var init = function (id, data, func) {
+            
+            defaultOptions = {
+                max : 0,
+                min : 0,
+                // colors pattern
+                defaultColors : [      
+                    '#63BE7B',
+                    '#FBE983',
+                    '#F8696B',
+                    '#ffff00'
+                ],
+                defaultTextColor : '#FFFFFF',
+                NaNcolor : '#808080' //grey color
+            };
+
+            if (data) {
+                Utils.extend(data);
+            }
+
+            console.log (defaultOptions);
             tableData = Utils.findMaxMin(id);
+
 
             if (!tableData) {
                 throw new Error('Error : Couldn\'t find the specified id');
