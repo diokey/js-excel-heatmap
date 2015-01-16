@@ -48,13 +48,13 @@
 
   var excelHeatMap = window.ExcelHeatMap;
 
-  excelHeatMap.init('myTable',{});
+  excelHeatMap.init('#myTable td',{});
   excelHeatMap.render();
 
   //render second table. May be i should allow user to pass an array of ids
   //or may be allows the user to pass whatever selector is.
 
-  excelHeatMap.init('myTable2',{});
+  excelHeatMap.init('#myTable2 td',{});
   excelHeatMap.render();
 
 })();
