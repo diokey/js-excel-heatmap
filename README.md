@@ -23,6 +23,10 @@ ExcelHeatMap.render();
 
 # contributing
 
+Clone this project, and send me pull requests
+
 # help
 
+# TODO
+Support more than just a table
 
