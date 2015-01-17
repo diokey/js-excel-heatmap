@@ -29,7 +29,7 @@ Clone this project, and send me pull requests
 
 # TODO
 Support more than just a table
-* <ul>,
-* <ol>,
+* ul,
+* ol,
 * data attributes
 
