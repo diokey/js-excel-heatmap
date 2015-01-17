@@ -5,7 +5,7 @@ Js Excel Heatmap is library for creating heatmap table in Javascript. Pretty muc
 It basically helps you colorize a table with a background color depending on the cell value.
 
 # wiki
-
+The project wiki is [here](https://github.com/diokey/js-excel-heatmap/wiki)
 # Usage
 
 Zero Config
