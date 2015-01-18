@@ -248,13 +248,14 @@
                 Utils.extend(data);
             }
 
-            console.log (defaultOptions);
             tableData = Utils.findMaxMin(id);
 
 
             if (!tableData) {
                 throw new Error('Error : Couldn\'t find the specified id');
             }
+
+            return this;
         }, 
         
         renderHtml = function () {
