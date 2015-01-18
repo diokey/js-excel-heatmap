@@ -16,8 +16,10 @@ You can just pass the selector of the table that you want to colorize.
 
 It's as easy as 
 
+```
 ExcelHeatMap.init('#table1 td');
 ExcelHeatMap.render();
+```
 
 # demo
 
