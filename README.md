@@ -25,6 +25,12 @@ ExcelHeatMap.render();
 
 # contributing
 
+* 1. Fork it!
+* 2. Create your branch: git checkout -b my-new-branch
+* 3. Commit your changes: git commit -am 'fix stuff'
+* 4. Push to the branch: git push origin my-new-branch
+* 5. Kindly Submit a pull request
+
 Clone this project, and send me pull requests
 
 # help
