@@ -60,14 +60,10 @@
     NaNcolor : '#800000' //grey color
   };
 
-  excelHeatMap.init('#myTable td',colorOptions);
-  excelHeatMap.render();
+  var table = excelHeatMap.init('#myTable td',colorOptions);
+  table.render();
 
-  //render second table. May be i should allow user to pass an array of ids
-  //or may be allows the user to pass whatever selector is.
-
-  excelHeatMap.init('#myTable2 td',{});
-  excelHeatMap.render();
+  excelHeatMap.init('#myTable2 td',{}).render();
 
 })();
 
