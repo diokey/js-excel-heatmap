@@ -13,8 +13,15 @@
 
        });
 
+       it('should have init method', function() {
+          expect(ExcelHeatMap.init()).toBeDefined();
+       });
 
-        var ExcelHeatMap = window.ExcelHeatMap;
+       it('should have render method', function() {
+           var table = ExcelHeatMap.init('#mytable td',{}); 
+           console.log(table);
+           expect(table.render).toBeDefined();
+       });
 
         //add more test here
 
