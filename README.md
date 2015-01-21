@@ -23,6 +23,8 @@ ExcelHeatMap.render();
 
 # demo
 
+Check out some demo [here] (http://diokey.github.io/js-excel-heatmap)
+
 # contributing
 
 1. Fork it!
