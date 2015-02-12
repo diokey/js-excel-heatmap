@@ -6,6 +6,7 @@ It basically helps you colorize a table with a background color depending on the
 
 # wiki
 The project wiki is [here](https://github.com/diokey/js-excel-heatmap/wiki)
+
 # Usage
 
 Zero Config
@@ -21,9 +22,9 @@ ExcelHeatMap.init('#table1 td');
 ExcelHeatMap.render();
 ```
 
-# demo
+# Demo
 
-# contributing
+# Contributing
 
 1. Fork it!
 2. Create your branch: `git checkout -b my-new-branch`
